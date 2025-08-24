@@ -1,100 +1,225 @@
-*{
+/* 🌙 Theme Variables */
+:root {
+    --primary-bg: #cfd3d4;
+    --card-bg: #ffffff;
+    --text-color: #222;
+    --accent: #ff9d00;
+    --accent-dark: #ff4d00;
+    --highlight: #ffd700;
+    --badge-bg: #e63946;
+    --border-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  body.dark {
+    --primary-bg: #121212;
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --text-color: #eee;
+    --accent: #ffb347;
+    --accent-dark: #ff7043;
+    --highlight: #ffe066;
+    --border-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Reset + Base */
+  *,
+  *::before,
+  *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-body{
-    font-family: poppins, sans-serif;
-     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-}
-header{
-     text-align: center;
-    padding: 30px;
-    color: white;
-    font-size: 1.5rem;
-    /* font-size: 2.5rem; */
-    font-weight: 600; 
-}
-header h1{
-    font-size: 2.5rem;
-    font-weight: 600;
-}
-.product-cards{
-    display: grid;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-color);
+    transition: background 0.4s, color 0.4s;
+    line-height: 1.5;
+  }
+  
+  /* Header */
+  header {
     max-width: 1200px;
     margin: auto;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    padding: 30px;
-}
-.card{
-    padding: 20px;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    flex: 1 1 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    background-clip: text;
+    color: transparent;
+    box-shadow: inset 0 -2px 0 var(--highlight);
+  }
+  .product-controls {
+    flex: 1;
+  }
+  .controls select {
+    padding: 8px 12px;
+    border: 3px solid var(--border-color);
+    border-radius: 8px;
+    margin-right: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+  }
+  .controls select:hover {
+    border-color: var(--accent);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  #theme-toggle {
+    padding: 8px 14px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
     color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  #theme-toggle:hover {
+    opacity: 0.9;
+  }
+  #cart {
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  /* Product Cards */
+  .product-cards {
+    display: grid;
+    max-width: 1200px;
+    margin: 30px auto;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 0 20px;
+  }
+  .card {
+    position: relative;
+    padding: 20px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     text-align: center;
     transition: all 0.4s ease;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 15px;
-}
-.card img{
+    will-change: transform;
+  }
+  .card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+  }
+  .card img {
     width: 100%;
     height: 200px;
-    border-radius: 15px;
+    border-radius: 12px;
+    object-fit: cover;
     transition: transform 0.4s ease;
-}
-.card h2{
-    font-size: 1.4rem;
-}
-.card p{
-    font-size: 0.95rem;
+  }
+  .card:hover img {
+    transform: scale(1.05);
+  }
+  
+  /* Skeleton Loader */
+  .skeleton {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ccc 25%, #ddd 50%, #ccc 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  /* Card Texts */
+  .card h2 {
+    font-size: 1.2rem;
+  }
+  .card p {
+    font-size: 0.9rem;
     opacity: 0.85;
-}
-.price{
-    font-size: 1.3rem;
+  }
+  .stars {
+    font-size: 1rem;
+    color: var(--highlight);
+  }
+  .price {
+    font-size: 1.1rem;
     font-weight: bold;
-    color: #ffd700;
-}
-.card button{
-    background: linear-gradient(135deg, #ff9d00, #ff4d00);
+    color: var(--highlight);
+  }
+  .fav {
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  .fav:hover {
+    color: var(--accent);
+  }
+  
+  /* Buttons */
+  .card button {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
     border: none;
     color: #fff;
     padding: 10px;
     border-radius: 25px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
     font-weight: bold;
-}
-.card:hover{
-    transform: translateY(-10px) scale(1.03);
-}
-.card:hover img{
-    transform: scale(1.05);
-}
-.card button:hover{
-    background: linear-gradient(135deg, #ff4d00, #ff9d00);
-}
-
-/* Responsive Breakpoints */
-@media (max-width: 992px) {
-    .product-cards{
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+  }
+  .card button:hover {
+    background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  }
+  .card button:focus {
+    outline: 3px solid var(--highlight);
+    outline-offset: 3px;
+  }
+  
+  /* Sale Badge */
+  .badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--badge-bg);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
     }
-}
-@media (max-width: 768px) {
-    .product-cards{
-        grid-template-columns: 1fr;
-        padding: 20px;
+    .product-controls, .header-actions {
+      justify-content: center;
     }
-    .card{
-        max-width: 400px;
-        margin: auto;
-    }
-}
+  }
+  
